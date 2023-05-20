@@ -67,7 +67,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a5cba8613eec5d54c9f4e21e0815d900, type: 2}
+  - {fileID: 2100000, guid: 28432d97dc46cf24db6b0a4f6903993b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -109,9 +109,9 @@ MonoBehaviour:
   doorSpawnning: 
   doorAmount: 0
   powerDistance: 0
-  generationRule: {fileID: 11400000, guid: 2ded0f52d9d41c9418128f9e042181b2, type: 2}
   isValidate: 0
   pos: {x: 0, y: 0}
+  generationRule: {fileID: 11400000, guid: 2ded0f52d9d41c9418128f9e042181b2, type: 2}
   roomBuilding: {fileID: -7482893507041772067}
 --- !u!114 &-7482893507041772067
 MonoBehaviour:
@@ -127,10 +127,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offSet: 10
   offSetHeight: 2.5
-  partition: {fileID: 6421663034399091876, guid: e99834333276f61479bfcf79a3b698f4, type: 3}
+  partition: {fileID: 6421663034399091876, guid: e99834333276f61479bfcf79a3b698f4,
+    type: 3}
   floor: {fileID: -8200448281228668677, guid: 80b4e8d721f2bd445ae08b55bb7ce859, type: 3}
-  externalPartition: []
-  material: {fileID: 2100000, guid: a5cba8613eec5d54c9f4e21e0815d900, type: 2}
+  material: {fileID: 2100000, guid: 28432d97dc46cf24db6b0a4f6903993b, type: 2}
 --- !u!1 &448671776571620002
 GameObject:
   m_ObjectHideFlags: 0
@@ -193,7 +193,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 58d04a75d1ef0484391d65cdac92e70d, type: 2}
+  - {fileID: 2100000, guid: 08836c82dac6ea149a7ecd1cd204d23c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -229,6 +229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   direction: 0
   exitDoor: {fileID: 0}
+  isActivate: 0
 --- !u!1 &6291870876590884131
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,7 +292,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 58d04a75d1ef0484391d65cdac92e70d, type: 2}
+  - {fileID: 2100000, guid: 08836c82dac6ea149a7ecd1cd204d23c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -327,6 +328,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   direction: 1
   exitDoor: {fileID: 0}
+  isActivate: 0
 --- !u!1 &6993674317770422132
 GameObject:
   m_ObjectHideFlags: 0
@@ -389,7 +391,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 58d04a75d1ef0484391d65cdac92e70d, type: 2}
+  - {fileID: 2100000, guid: 08836c82dac6ea149a7ecd1cd204d23c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -425,6 +427,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   direction: 3
   exitDoor: {fileID: 0}
+  isActivate: 0
 --- !u!1 &8916221592433456163
 GameObject:
   m_ObjectHideFlags: 0
@@ -487,7 +490,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 58d04a75d1ef0484391d65cdac92e70d, type: 2}
+  - {fileID: 2100000, guid: 08836c82dac6ea149a7ecd1cd204d23c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -523,3 +526,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   direction: 2
   exitDoor: {fileID: 0}
+  isActivate: 0

@@ -67,7 +67,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 58d04a75d1ef0484391d65cdac92e70d, type: 2}
+  - {fileID: 2100000, guid: 08836c82dac6ea149a7ecd1cd204d23c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -109,9 +109,9 @@ MonoBehaviour:
   doorSpawnning: 
   doorAmount: 0
   powerDistance: 0
-  generationRule: {fileID: 11400000, guid: 2ded0f52d9d41c9418128f9e042181b2, type: 2}
   isValidate: 0
   pos: {x: 0, y: 0}
+  generationRule: {fileID: 11400000, guid: 2ded0f52d9d41c9418128f9e042181b2, type: 2}
   roomBuilding: {fileID: -8531623481371244695}
 --- !u!114 &-8531623481371244695
 MonoBehaviour:
@@ -127,9 +127,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offSet: 10
   offSetHeight: 2.5
-  partition: {fileID: 6421663034399091876, guid: e99834333276f61479bfcf79a3b698f4, type: 3}
+  partition: {fileID: 6421663034399091876, guid: e99834333276f61479bfcf79a3b698f4,
+    type: 3}
   floor: {fileID: -8200448281228668677, guid: 80b4e8d721f2bd445ae08b55bb7ce859, type: 3}
-  externalPartition: []
+  material: {fileID: 0}
 --- !u!1 &1649883747955296819
 GameObject:
   m_ObjectHideFlags: 0
@@ -228,6 +229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   direction: 0
   exitDoor: {fileID: 0}
+  isActivate: 0
 --- !u!1 &2176362443217581772
 GameObject:
   m_ObjectHideFlags: 0
@@ -326,6 +328,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   direction: 1
   exitDoor: {fileID: 0}
+  isActivate: 0
 --- !u!1 &3275128845387170057
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,6 +427,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   direction: 3
   exitDoor: {fileID: 0}
+  isActivate: 0
 --- !u!1 &8236259359501143478
 GameObject:
   m_ObjectHideFlags: 0
@@ -522,3 +526,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   direction: 2
   exitDoor: {fileID: 0}
+  isActivate: 0
