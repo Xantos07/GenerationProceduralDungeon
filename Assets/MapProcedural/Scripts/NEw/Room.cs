@@ -63,7 +63,6 @@ namespace NewGeneration
             SetDoor();
             //roomBuilding.BuildFloor(doorSpawnning);
         }
-
          public void AddFloor() 
          {
              for (int x = 0; x < roomBuilding.isFloor.GetLength(0); x++)
@@ -103,7 +102,7 @@ namespace NewGeneration
         public bool Pourcentage(int _max,float valuePourcent)
         {   
             int _pourcentage = seed.Next(0, _max);
-            Debug.Log("_pourcentage : " + _pourcentage);
+
             if(_pourcentage < valuePourcent)
             {
                 return true;
