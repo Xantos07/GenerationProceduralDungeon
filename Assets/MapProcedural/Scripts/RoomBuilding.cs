@@ -38,13 +38,15 @@ namespace NewGeneration
         {
             if (isFloor[0, 0])
                 if (!isFloor[1, 0] && !isFloor[0, 1]) isFloor[0, 1] = true;
+                
             
             if (isFloor[2, 0])
                 if (!isFloor[2, 1] && !isFloor[1, 0]) isFloor[1, 0] = true;
+                
             
             if (isFloor[2, 2])
                 if (!isFloor[2, 1] && !isFloor[1, 2]) isFloor[1, 2] = true;
-            
+
             if (isFloor[0, 2])
                 if (!isFloor[0, 1] && !isFloor[1, 2]) isFloor[1, 2] = true;
         }
@@ -58,6 +60,9 @@ namespace NewGeneration
             foreach (Direction _dir in _doorSpawnning) SetFloor(_dir);   
             
             isFloor[1, 1] = true;
+            
+            // CHECK SLOT
+            CheckAloneFloor();
             
             int _x = 0;
             int _y = 0;
@@ -84,8 +89,6 @@ namespace NewGeneration
                 _y = 0;
             }
             
-            // CHECK SLOT
-            CheckAloneFloor();
             BuildWallDirection(_floors, partition.gameObject);
         }
         
