@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 using Random = System.Random;
 
 namespace NewGeneration
@@ -17,7 +15,7 @@ namespace NewGeneration
         [SerializeField] Vector2Int pos = new();
         
         [SerializeField] private GenerationRule generationRule;
-        [SerializeField] RoomBuilding roomBuilding;
+        [SerializeField] protected RoomBuilding _roomBuilding;
         private Random seed;
         public bool IsValidate { get => isValidate; set => isValidate = value; }
         public Vector2Int PositionRoom { get => pos; set => pos = value; }
@@ -28,7 +26,8 @@ namespace NewGeneration
          public void UpdateView()
          {
              AddFloor();
-             roomBuilding.BuildFloor(doorSpawnning);
+             _roomBuilding.BuildFloor(doorSpawnning);
+             
              foreach (Direction _dir in doorSpawnning)
              {
                  doors[(int)_dir].gameObject.SetActive(true);   
@@ -44,40 +43,22 @@ namespace NewGeneration
          {
              seed = _seed;
              pos = _pos;
-            powerDistance = PowerDistance();
+               powerDistance = PowerDistance();
             
             if(!_isSpawn || _isEnd)
             { 
                 doors[(int)_nextDoor].SetIsActivate(true);
-                //doors[(int)_nextDoor].gameObject.SetActive(true);
                 doorSpawnning.Add(_nextDoor);
                 doorAmount++;
                 
-                if(_isEnd)
-                {
-                   // roomBuilding.BuildFloor(doorSpawnning);
-                    return;
-                }
+                if(_isEnd) return;
             }
             
             SetDoor();
-            //roomBuilding.BuildFloor(doorSpawnning);
-        }
-         public void AddFloor() 
-         {
-             for (int x = 0; x < roomBuilding.isFloor.GetLength(0); x++)
-             {
-                 for (int y = 0; y < roomBuilding.isFloor.GetLength(1); y++)
-                 {
-                     Debug.Log("x : " + x + " / " + "y : " + y );
-                     if (Pourcentage( 101, 40f))
-                     {
-                         roomBuilding.isFloor[x, y] = true;
-                     }
-                 }
-             }
          }
-        public void SetDoor()
+
+         public  abstract void AddFloor();
+         void SetDoor()
         {
             int indexDoor = seed.Next(0, 4);
             
@@ -99,7 +80,7 @@ namespace NewGeneration
             
         }
         
-        public bool Pourcentage(int _max,float valuePourcent)
+        protected bool Pourcentage(int _max,float valuePourcent)
         {   
             int _pourcentage = seed.Next(0, _max);
 

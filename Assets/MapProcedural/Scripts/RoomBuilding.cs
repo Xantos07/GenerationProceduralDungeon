@@ -11,13 +11,16 @@ namespace NewGeneration
         [SerializeField] private float offSetHeight = 2.5f;
         [SerializeField] private Partition partition;
         [SerializeField] private Floor floor;
-        public bool[,] isFloor = new bool[3, 3];
+        [SerializeField] bool[,] isFloor = new bool[3, 3];  
 
-        List<Partition> externalPartition = new List<Partition>();
+        List<Partition> _externalPartition = new List<Partition>();
         [SerializeField] Material material;
-        void SetFloor(Direction _doorSpawnning)
+        public bool[,] GetIsFloor() => isFloor;
+        public void SetIsFloor(Vector2Int isFloorCoord, bool floor) => isFloor[isFloorCoord.x, isFloorCoord.y] = floor;
+        
+        void CrossFloor(Direction doorSpawnning)
         {
-            switch (_doorSpawnning)
+            switch (doorSpawnning)
             {
                 case Direction.north:
                     isFloor[1, 2] = true;
@@ -51,13 +54,13 @@ namespace NewGeneration
                 if (!isFloor[0, 1] && !isFloor[1, 2]) isFloor[1, 2] = true;
         }
         
-        public void BuildFloor(List<Direction> _doorSpawnning)
+        public void BuildFloor(List<Direction> doorSpawnning)
         {
             //COnstruction de la taille de notre salle 
-            Floor[,] _floors = new Floor[SIZE, SIZE];
+            Floor[,] floors = new Floor[SIZE, SIZE];
             //isFloor = new bool[SIZE, SIZE];
             
-            foreach (Direction _dir in _doorSpawnning) SetFloor(_dir);   
+            foreach (Direction dir in doorSpawnning) CrossFloor(dir);   
             
             isFloor[1, 1] = true;
             
@@ -76,7 +79,7 @@ namespace NewGeneration
                             new Vector3(transform.position.x + x * offSet, 0, transform.position.z + y * offSet),
                             Quaternion.identity, transform).GetComponent<Floor>();
                         _floorInst.name = " FLOOR : " + new Vector2Int(_x, _y);
-                        _floors[_x, _y] = _floorInst;
+                        floors[_x, _y] = _floorInst;
                         
                         _floorInst.GetComponent<MeshRenderer>().material = material;
                         
@@ -89,10 +92,10 @@ namespace NewGeneration
                 _y = 0;
             }
             
-            BuildWallDirection(_floors, partition.gameObject);
+            BuildWallDirection(floors, partition.gameObject);
         }
         
-        public void CheckAdjacentFloor(Vector2Int _coord, Floor _floor)
+        void CheckAdjacentFloor(Vector2Int coord, Floor floor)
         {
             for (int x = -1; x <= 1; x++)
             {
@@ -101,20 +104,20 @@ namespace NewGeneration
                     if (Mathf.Abs(x) == Mathf.Abs(y)) continue;
 
                     //SI nous somms à l'exterieur de notre tableau && que nous avons un floor dans une certaine direction
-                    if (IsInSide(new Vector2Int(_coord.x + x, _coord.y + y)) && isFloor[_coord.x + x, _coord.y + y])
+                    if (IsInSide(new Vector2Int(coord.x + x, coord.y + y)) && isFloor[coord.x + x, coord.y + y])
                     {
-                        _floor.AddDirection(ConvertDirection.CalculateDirection(new Vector2Int(x, y)));
+                        floor.AddDirection(ConvertDirection.CalculateDirection(new Vector2Int(x, y)));
                         continue;
                     }
 
-                    _floor.NoAdjacent(ConvertDirection.CalculateDirection(new Vector2Int(x, y)));
+                    floor.NoAdjacent(ConvertDirection.CalculateDirection(new Vector2Int(x, y)));
                 }
             }
         }
 
-        public bool IsInSide(Vector2Int _coord)
+        bool IsInSide(Vector2Int coord)
         {
-            if (_coord.x < SIZE && _coord.x >= 0 && _coord.y < SIZE && _coord.y >= 0)
+            if (coord.x < SIZE && coord.x >= 0 && coord.y < SIZE && coord.y >= 0)
             {
                 return true;
             }
@@ -122,40 +125,40 @@ namespace NewGeneration
             return false;
         }
 
-        public void BuildWallDirection(Floor[,] _floors, GameObject _element)
+        void BuildWallDirection(Floor[,] floors, GameObject element)
         {
             Vector3 _pos = new Vector3(0, 0, 0);
             Partition _partition = null;
 
-            for (int x = 0; x < _floors.GetLength(0); x++)
+            for (int x = 0; x < floors.GetLength(0); x++)
             {
-                for (int y = 0; y < _floors.GetLength(1); y++)
+                for (int y = 0; y < floors.GetLength(1); y++)
                 {
-                    if (_floors[x, y] == null) continue;
+                    if (floors[x, y] == null) continue;
 
-                    for (int i = 0; i < _floors[x, y].GetNoAdjacentFloor().Count; i++)
+                    for (int i = 0; i < floors[x, y].GetNoAdjacentFloor().Count; i++)
                     {
-                        switch (_floors[x, y].GetNoAdjacentFloor()[i])
+                        switch (floors[x, y].GetNoAdjacentFloor()[i])
                         {
                             case Direction.north:
-                                _pos = new Vector3(_floors[x, y].transform.position.x, offSetHeight,
-                                    _floors[x, y].transform.position.z + offSet / 2);
-                                BuildElement<Partition>(_element, _pos, Quaternion.Euler(0, 0, 0), _floors[x, y].transform).UpdateView(true);
+                                _pos = new Vector3(floors[x, y].transform.position.x, offSetHeight,
+                                    floors[x, y].transform.position.z + offSet / 2);
+                                BuildElement<Partition>(element, _pos, Quaternion.Euler(0, 0, 0), floors[x, y].transform).UpdateView(true);
                                 break;
                             case Direction.south:
-                                _pos = new Vector3(_floors[x, y].transform.position.x, offSetHeight,
-                                    _floors[x, y].transform.position.z - offSet / 2);
-                                BuildElement<Partition>(_element, _pos, Quaternion.Euler(0, 0, 0), _floors[x, y].transform).UpdateView(true);
+                                _pos = new Vector3(floors[x, y].transform.position.x, offSetHeight,
+                                    floors[x, y].transform.position.z - offSet / 2);
+                                BuildElement<Partition>(element, _pos, Quaternion.Euler(0, 0, 0), floors[x, y].transform).UpdateView(true);
                                 break;
                             case Direction.west:
-                                _pos = new Vector3(_floors[x, y].transform.position.x - offSet / 2, offSetHeight,
-                                    _floors[x, y].transform.position.z);
-                                BuildElement<Partition>(_element, _pos, Quaternion.Euler(0, 90, 0), _floors[x, y].transform).UpdateView(true);
+                                _pos = new Vector3(floors[x, y].transform.position.x - offSet / 2, offSetHeight,
+                                    floors[x, y].transform.position.z);
+                                BuildElement<Partition>(element, _pos, Quaternion.Euler(0, 90, 0), floors[x, y].transform).UpdateView(true);
                                 break;
                             case Direction.east:
-                                _pos = new Vector3(_floors[x, y].transform.position.x + offSet / 2, offSetHeight,
-                                    _floors[x, y].transform.position.z);
-                                BuildElement<Partition>(_element, _pos, Quaternion.Euler(0, 90, 0), _floors[x, y].transform).UpdateView(true);
+                                _pos = new Vector3(floors[x, y].transform.position.x + offSet / 2, offSetHeight,
+                                    floors[x, y].transform.position.z);
+                                BuildElement<Partition>(element, _pos, Quaternion.Euler(0, 90, 0), floors[x, y].transform).UpdateView(true);
                                 break;
                         }
                     }
@@ -163,17 +166,17 @@ namespace NewGeneration
             }
         }
 
-        void AddPartition(Partition _partition, Vector2Int _pos, Direction _direction)
+        void AddPartition(Partition partition, Vector2Int pos, Direction direction)
         {
-            externalPartition.Add(partition);
+            _externalPartition.Add(this.partition);
         }
 
         /// <summary>
         /// Construit un objet que l'on veut exemple: un mur, sol, porte etc ... 
         /// </summary>
-        public T BuildElement<T>(GameObject _element, Vector3 _position, Quaternion _rotation, Transform _parent)
+        T BuildElement<T>(GameObject element, Vector3 position, Quaternion rotation, Transform parent)
         {
-            return Instantiate(_element, _position, _rotation, _parent).GetComponent<T>();
+            return Instantiate(element, position, rotation, parent).GetComponent<T>();
         }
     }
 }

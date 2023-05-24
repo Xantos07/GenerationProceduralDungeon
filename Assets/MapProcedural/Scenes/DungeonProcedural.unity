@@ -626,11 +626,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7f413ffc08870a4497c561306a80365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomAmount: 10
-  specialRoom: 1
-  bossRoom: 1
-  distanceSpecialRoom: 3
-  distanceBossRoom: 3
+  roomAmount: 20
+  specialRoom: 3
+  bossRoom: 2
+  distanceSpecialRoom: 5
+  distanceBossRoom: 5
   offSet: 35
   spawn: {fileID: 4775353260365060062, guid: 854dd5d747384ea41b652c2648c874c9, type: 3}
   classic: {fileID: 5299676080272803448, guid: 0abbe0f3728b47145b4e3b93854b2a00, type: 3}

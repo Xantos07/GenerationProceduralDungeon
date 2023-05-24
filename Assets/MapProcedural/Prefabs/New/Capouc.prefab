@@ -112,7 +112,7 @@ MonoBehaviour:
   isValidate: 0
   pos: {x: 0, y: 0}
   generationRule: {fileID: 11400000, guid: 2ded0f52d9d41c9418128f9e042181b2, type: 2}
-  roomBuilding: {fileID: -319472709911126551}
+  _roomBuilding: {fileID: -319472709911126551}
 --- !u!114 &-319472709911126551
 MonoBehaviour:
   m_ObjectHideFlags: 0
