@@ -40,10 +40,12 @@ namespace NewGeneration
             if (randomSeed) seed = Random.Range(-10000, 10000);
 
             random = new System.Random(seed);
-
+       
             Room[] rooms = GetComponentsInChildren<Room>();
             foreach (Room _room in rooms) Destroy(_room.gameObject);
-
+            
+            indexRoom = 0;
+            
             GenerateSpawnRoom();
             GenerateRoom();
             GenerateRoomView();
@@ -69,10 +71,9 @@ namespace NewGeneration
 
                     if (_indexRoom != indexRoom) continue;
 
-                    // Pas assez de salle donc reset
+                    // Pas assez de salle donc reset => a corriger pour ne pas changer de seed mais de trouver une solution
                     if (_indexRoom == indexRoom)
                     {
-                        //A CHanger pour rendre la valeur A 100 pour la 2porte si le nombre nest pas suffisant pour ne pas changer la seed
                         randomSeed = true;
                         Init();
                         return;
@@ -81,10 +82,12 @@ namespace NewGeneration
 
                 if (PatternClassicRoom(true).Count == 0 || indexRoom >= roomAmount)
                 {
-                    PatternClassicRoom(true);
-                    //A CHanger pour rendre la valeur A 100 pour la 2porte si le nombre nest pas suffisant pour ne pas changer la seed
+                    PatternClassicRoom(true);                    
+                    
+                    // Pas assez de salle donc reset => a corriger pour ne pas changer de seed mais de trouver une solution
                     randomSeed = true;
                     if (indexRoom < roomAmount || specialRoom > 0 ||  bossRoom > 0) Init();
+                    
                     return;
                 }
             }
@@ -131,10 +134,7 @@ namespace NewGeneration
                         //_rooms.ResetDoorPart(actualDirection);
                         continue;
                     }
-
-                    // PROBLEME instentie une salle dans la position d'une autre salle car celle ci n'est
-                    // pas en core dans la liste et donc spawn en même temps 
-
+                    
                     _classicRoom = SpawnRoom(_rooms, actualDirection);
                     RoomDoor(_rooms, _classicRoom, i, nextDirection);
                     RoomName(_rooms);

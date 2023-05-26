@@ -627,7 +627,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7f413ffc08870a4497c561306a80365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomAmount: 10
+  roomAmount: 16
   specialRoom: 1
   bossRoom: 1
   distanceSpecialRoom: 2
