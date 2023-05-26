@@ -37,7 +37,6 @@ namespace NewGeneration
 
         private void Init()
         {
-            Debug.Log("generation");
             if (randomSeed) seed = Random.Range(-10000, 10000);
 
             random = new System.Random(seed);
@@ -64,8 +63,7 @@ namespace NewGeneration
                 int _indexRoom = indexRoom;
 
                 //Si je n'est pas atteint mon nombre de salle attendue
-
-                if (indexRoom < roomAmount)
+                if (indexRoom < roomAmount) 
                 {
                     PatternClassicRoom(false);
 
@@ -98,8 +96,6 @@ namespace NewGeneration
 
             foreach (Room _rooms in rooms)
             {
-              //  if (_rooms.IsValidate) continue;
-
                 for (int i = 0; i < _rooms.doors.Length; i++)
                 {
                     if (!_rooms.doors[i].GetIsActivate()) continue;
@@ -112,15 +108,16 @@ namespace NewGeneration
 
                     if (AlreadyRoom(rooms, _rooms.PositionRoom + nextPos))
                     {
-                        //Debug.LogWarning("actualDirection ! " + actualDirection ,_rooms.transform);
                         _rooms.AddNewPart(actualDirection);
                         if(nextRoom != null)
                         {
                             RoomDoor(_rooms, GetRoom(_rooms.PositionRoom + nextPos), i, nextDirection);
                             GetRoom(_rooms.PositionRoom + nextPos).AddNewPart(nextDirection);
                         }
+                        
                         continue;
                     }
+                    
                     //Doit mettre a jour la porte deja mise de la salle pour ajouter celle en face
                     if (AlreadyRoom(_roomClassicStack, _rooms.PositionRoom + nextPos))
                     {
@@ -131,7 +128,7 @@ namespace NewGeneration
                            GetRoom(_rooms.PositionRoom + nextPos).AddNewPart(nextDirection);
                         }
                         
-                       // _rooms.ResetDoorPart(actualDirection);
+                        //_rooms.ResetDoorPart(actualDirection);
                         continue;
                     }
 
@@ -157,21 +154,20 @@ namespace NewGeneration
 
             return _roomClassicStack;
         }
-
+        
         Room SpawnRoom(Room _rooms, Direction _actualDirection)
-        {
+        {         
             int pourcentageSpecialRoom = random.Next(0, 100);
-            int pourcentageBossRoom = random.Next(0, 100);
-
-            if (specialRoom != 0 &&
-                _rooms.PowerDistance() >= distanceSpecialRoom &&
-                pourcentageSpecialRoom <= CalculatePourcentageSpecial())
+            
+            if (specialRoom != 0 && _rooms.PowerDistance() >= distanceSpecialRoom && pourcentageSpecialRoom <= CalculatePourcentageSpecial())
             {
                 specialRoom--;
                 return Instantiate(trade, _rooms.transform.position + OffSetPosition(_actualDirection),
                     Quaternion.identity, transform);
             }
-
+            
+            int pourcentageBossRoom = random.Next(0, 100);
+            
             if (bossRoom != 0 &&
                 _rooms.PowerDistance() >= distanceBossRoom && pourcentageBossRoom <= CalculatePourcentageSpecial())
             {
@@ -179,9 +175,8 @@ namespace NewGeneration
                 return Instantiate(boss, _rooms.transform.position + OffSetPosition(_actualDirection),
                     Quaternion.identity, transform);
             }
-
-            return Instantiate(classic, _rooms.transform.position + OffSetPosition(_actualDirection),
-                Quaternion.identity, transform);
+            
+            return Instantiate(classic, _rooms.transform.position + OffSetPosition(_actualDirection), Quaternion.identity, transform);
         }
 
         void RoomDoor(Room _rooms, Room _classicRoom, int _i, Direction _nextDirection)
