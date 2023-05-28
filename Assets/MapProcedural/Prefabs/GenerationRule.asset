@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2043fa6758566f0449fe7a853b5069b0, type: 3}
   m_Name: GenerationRule
   m_EditorClassIdentifier: 
-  spawnRoomSpawn:
+  SpawnRoomSpawn:
   - 100
   - 100
   - 50
   - 25
-  spawnRoomClassic:
+  SpawnRoomClassic:
   - 80
   - 50
   - 25

@@ -2,99 +2,98 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = System.Random;
 
-namespace NewGeneration
+
+public abstract class Room : MonoBehaviour
 {
-    public abstract class Room : MonoBehaviour
-    {
-         public Door[] doors;
-        [SerializeField] private List<Direction> doorSpawnning = new List<Direction>();
-        [SerializeField] private int doorAmount = 0;
-        
-        [SerializeField] private int powerDistance = 0;
-        [SerializeField] private bool isValidate = false;
-        [SerializeField] Vector2Int pos = new();
-        
-        [SerializeField] private GenerationRule generationRule;
-        [SerializeField] protected RoomBuilding _roomBuilding;
-        private Random seed;
-        public bool IsValidate { get => isValidate; set => isValidate = value; }
-        public Vector2Int PositionRoom { get => pos; set => pos = value; }
+     public Door[] Doors;
+    [SerializeField] private List<Direction> _doorSpawnning = new List<Direction>();
+    [SerializeField] private int _doorAmount = 0;
+    
+    [SerializeField] private int _powerDistance = 0;
+    [SerializeField] private bool _isValidate = false;
+    [SerializeField] Vector2Int _pos = new();
+    
+    [SerializeField] private GenerationRule _generationRule;
+    [SerializeField] protected RoomBuilding _roomBuilding;
+    private Random _seed;
+    public bool IsValidate { get => _isValidate; set => _isValidate = value; }
+    public Vector2Int PositionRoom { get => _pos; set => _pos = value; }
 
-         //public abstract void UpdateDoor(Random _seed, Vector2Int _pos, Direction _nextDoor,bool _isEnd);
+     //public abstract void UpdateDoor(Random _seed, Vector2Int _pos, Direction _nextDoor,bool _isEnd);
+     
+     //Reractoriser cette partie
+     public void UpdateView()
+     {
+         AddFloor();
+         _roomBuilding.BuildFloor(_doorSpawnning);
          
-         //Reractoriser cette partie
-         public void UpdateView()
+         foreach (Direction dir in _doorSpawnning)
          {
-             AddFloor();
-             _roomBuilding.BuildFloor(doorSpawnning);
-             
-             foreach (Direction _dir in doorSpawnning)
-             {
-                 doors[(int)_dir].gameObject.SetActive(true);   
-             }
+             Doors[(int)dir].gameObject.SetActive(true);   
          }
+     }
 
-         public void AddNewPart(Direction _nextDoor)
-         {     
-             if (!doorSpawnning.Contains(_nextDoor))
-                 doorSpawnning.Add(_nextDoor);
-         }
-         public void UpdateRoom(Random _seed,Vector2Int _pos,Direction _nextDoor, bool _isSpawn, bool _isEnd)
-         {
-             seed = _seed;
-             pos = _pos;
-               powerDistance = PowerDistance();
+     public void AddNewPart(Direction nextDoor)
+     {     
+         if (!_doorSpawnning.Contains(nextDoor))
+             _doorSpawnning.Add(nextDoor);
+     }
+     public void UpdateRoom(Random seed,Vector2Int pos,Direction nextDoor, bool isSpawn, bool isEnd)
+     {
+         _seed = seed;
+         _pos = pos;
+         _powerDistance = PowerDistance();
+        
+        if(!isSpawn || isEnd)
+        { 
+            Doors[(int)nextDoor].SetIsActivate(true);
+            _doorSpawnning.Add(nextDoor);
+            _doorAmount++;
             
-            if(!_isSpawn || _isEnd)
-            { 
-                doors[(int)_nextDoor].SetIsActivate(true);
-                doorSpawnning.Add(_nextDoor);
-                doorAmount++;
-                
-                if(_isEnd) return;
-            }
-            
-            SetDoor();
-         }
-
-         public  abstract void AddFloor();
-         void SetDoor()
-        {
-            int indexDoor = seed.Next(0, 4);
-            
-            if (doorSpawnning.Contains((Direction)indexDoor))
-            {
-                SetDoor();
-                return;
-            }
-
-            if (!Pourcentage(101, generationRule.spawnRoomSpawn[doorAmount])) return;
-            
-            doors[indexDoor].SetIsActivate(true);
-           // doors[indexDoor].gameObject.SetActive(true);
-            doorSpawnning.Add((Direction)indexDoor);
-            doorAmount++;
-
-            if(doorAmount < doors.Length)
-              SetDoor();
-            
+            if(isEnd) return;
         }
         
-        protected bool Pourcentage(int _max,float valuePourcent)
-        {   
-            int _pourcentage = seed.Next(0, _max);
+        SetDoor();
+     }
 
-            if(_pourcentage < valuePourcent)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        public int PowerDistance()
+     public  abstract void AddFloor();
+     void SetDoor()
+    {
+        int indexDoor = _seed.Next(0, 4);
+        
+        if (_doorSpawnning.Contains((Direction)indexDoor))
         {
-            return Mathf.Abs(pos.x) + Mathf.Abs(pos.y);
+            SetDoor();
+            return;
         }
+
+        if (!Pourcentage(101, _generationRule.SpawnRoomSpawn[_doorAmount])) return;
+        
+        Doors[indexDoor].SetIsActivate(true);
+       // doors[indexDoor].gameObject.SetActive(true);
+        _doorSpawnning.Add((Direction)indexDoor);
+        _doorAmount++;
+
+        if(_doorAmount < Doors.Length)
+          SetDoor();
+        
+    }
+    
+    protected bool Pourcentage(int max,float valuePourcent)
+    {   
+        int _pourcentage = _seed.Next(0, max);
+
+        if(_pourcentage < valuePourcent)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public int PowerDistance()
+    {
+        return Mathf.Abs(_pos.x) + Mathf.Abs(_pos.y);
     }
 }
+

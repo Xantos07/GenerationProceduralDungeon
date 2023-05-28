@@ -2,27 +2,27 @@ using UnityEngine;
 
 public static class ConvertDirection 
 {
-    public static Direction CalculateDirection(Vector2Int _coord)
+    public static Direction CalculateDirection(Vector2Int coord)
     {
         Direction newDirection = Direction.north;
         
-        if (_coord == new Vector2Int(0,-1))
+        if (coord == new Vector2Int(0,-1))
             newDirection = Direction.south;
-        else if (_coord == new Vector2Int(0,1)) 
+        else if (coord == new Vector2Int(0,1)) 
             newDirection = Direction.north;
-        else if (_coord == new Vector2Int(-1,0))
+        else if (coord == new Vector2Int(-1,0))
             newDirection = Direction.west;
-        else if (_coord == new Vector2Int(1,0))
+        else if (coord == new Vector2Int(1,0))
             newDirection = Direction.east;
 
         return newDirection;
     }    
     
-    public static Direction ConvertInverseDirectionInt(Direction _direction)
+    public static Direction ConvertInverseDirectionInt(Direction direction)
     {
         Direction newDirection = Direction.north;
 
-        switch (_direction)
+        switch (direction)
         {
             case Direction.north:
                 newDirection = Direction.south;
@@ -41,26 +41,26 @@ public static class ConvertDirection
         return newDirection;
     }
     
-   public static Vector2Int CalculateCoordinate(Direction _dir)
+   public static Vector2Int CalculateCoordinate(Direction dir)
     {
-        Vector2Int dir = new ();
+        Vector2Int newDirection = new ();
         
-        switch (_dir)
+        switch (dir)
         {
             case  Direction.north:
-                dir.y += 1;
+                newDirection.y += 1;
                 break;
             case Direction.south :
-                dir.y += -1;
+                newDirection.y += -1;
                 break;
             case Direction.west :
-                dir.x += -1;
+                newDirection.x += -1;
                 break;
             case Direction.east :
-                dir.x += 1;
+                newDirection.x += 1;
                 break;
         }
 
-        return dir;
+        return newDirection;
     }
 }

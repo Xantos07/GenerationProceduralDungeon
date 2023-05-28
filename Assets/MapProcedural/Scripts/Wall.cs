@@ -2,6 +2,6 @@ using UnityEngine;
 
 public class Wall : Partition
 {
-    [SerializeField] private Direction direction;
-    [SerializeField] private bool ExternWall = false;
+    [SerializeField] private Direction _direction;
+    [SerializeField] private bool _externWall = false;
 }
