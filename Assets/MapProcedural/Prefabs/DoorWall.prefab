@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4897240771982232187
 Transform:
   m_ObjectHideFlags: 0
@@ -97,10 +97,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff6a21df9773b8940bebbe251d015fc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  door: {fileID: 0}
-  wall: {fileID: 0}
-  direction: 0
-  ExternWall: 0
+  _door: {fileID: 0}
+  _wall: {fileID: 0}
+  _direction: 0
+  _externWall: 0
 --- !u!1001 &7155210692894311524
 PrefabInstance:
   m_ObjectHideFlags: 0

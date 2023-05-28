@@ -1,19 +1,19 @@
 using UnityEngine;
 public class Partition : MonoBehaviour
 { 
-    [SerializeField] private GameObject door;
-    [SerializeField] private GameObject wall;
+    [SerializeField] private GameObject _door;
+    [SerializeField] private GameObject _wall;
 
-    public void UpdateView(bool _isWall)
+    public void UpdateView(bool isWall)
     {
-        if (_isWall)
+        if (isWall)
         {
-            wall.SetActive(true);
-            door.SetActive(false);
+            _wall.SetActive(true);
+            _door.SetActive(false);
             return;
         }
         
-        wall.SetActive(false);
-        door.SetActive(true);
+        _wall.SetActive(false);
+        _door.SetActive(true);
     }
 }

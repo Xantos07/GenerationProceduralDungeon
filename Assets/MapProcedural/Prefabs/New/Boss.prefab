@@ -101,17 +101,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd79e329614ac674388ada2af20a81e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doors:
+  Doors:
   - {fileID: 5573648274203827950}
   - {fileID: 6835452280536933717}
   - {fileID: 6584148213284547012}
   - {fileID: 4826831359454956411}
-  doorSpawnning: 
-  doorAmount: 0
-  powerDistance: 0
-  isValidate: 0
-  pos: {x: 0, y: 0}
-  generationRule: {fileID: 11400000, guid: 2ded0f52d9d41c9418128f9e042181b2, type: 2}
+  _doorSpawnning: 
+  _doorAmount: 0
+  _powerDistance: 0
+  _isValidate: 0
+  _pos: {x: 0, y: 0}
+  _generationRule: {fileID: 11400000, guid: 2ded0f52d9d41c9418128f9e042181b2, type: 2}
   _roomBuilding: {fileID: -7482893507041772067}
 --- !u!114 &-7482893507041772067
 MonoBehaviour:
@@ -125,12 +125,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f26cf977b18b9543a1aeaf05fd1dc65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offSet: 10
-  offSetHeight: 2.5
-  partition: {fileID: 6421663034399091876, guid: e99834333276f61479bfcf79a3b698f4,
+  _offSet: 10
+  _offSetHeight: 2.5
+  _partition: {fileID: 6421663034399091876, guid: e99834333276f61479bfcf79a3b698f4,
     type: 3}
-  floor: {fileID: -8200448281228668677, guid: 80b4e8d721f2bd445ae08b55bb7ce859, type: 3}
-  material: {fileID: 2100000, guid: 28432d97dc46cf24db6b0a4f6903993b, type: 2}
+  _floor: {fileID: -8200448281228668677, guid: 80b4e8d721f2bd445ae08b55bb7ce859, type: 3}
+  _material: {fileID: 2100000, guid: 28432d97dc46cf24db6b0a4f6903993b, type: 2}
 --- !u!1 &448671776571620002
 GameObject:
   m_ObjectHideFlags: 0
@@ -227,9 +227,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 307360ed6dc52ee4ca3a8ae1aa0b7b2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 0
-  exitDoor: {fileID: 0}
-  isActivate: 0
+  _direction: 0
+  _exitDoor: {fileID: 0}
+  _isActivate: 0
 --- !u!1 &6291870876590884131
 GameObject:
   m_ObjectHideFlags: 0
@@ -326,9 +326,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 307360ed6dc52ee4ca3a8ae1aa0b7b2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 1
-  exitDoor: {fileID: 0}
-  isActivate: 0
+  _direction: 1
+  _exitDoor: {fileID: 0}
+  _isActivate: 0
 --- !u!1 &6993674317770422132
 GameObject:
   m_ObjectHideFlags: 0
@@ -425,9 +425,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 307360ed6dc52ee4ca3a8ae1aa0b7b2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 3
-  exitDoor: {fileID: 0}
-  isActivate: 0
+  _direction: 3
+  _exitDoor: {fileID: 0}
+  _isActivate: 0
 --- !u!1 &8916221592433456163
 GameObject:
   m_ObjectHideFlags: 0
@@ -524,6 +524,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 307360ed6dc52ee4ca3a8ae1aa0b7b2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 2
-  exitDoor: {fileID: 0}
-  isActivate: 0
+  _direction: 2
+  _exitDoor: {fileID: 0}
+  _isActivate: 0

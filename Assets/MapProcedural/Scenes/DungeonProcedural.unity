@@ -385,8 +385,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41395f0c41f2f404b9383cde5963a41f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 0
-  exitDoor: {fileID: 0}
 --- !u!4 &1011281312
 Transform:
   m_ObjectHideFlags: 0
@@ -627,15 +625,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7f413ffc08870a4497c561306a80365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomAmount: 16
-  specialRoom: 1
-  bossRoom: 1
-  distanceSpecialRoom: 2
-  distanceBossRoom: 2
-  offSet: 35
-  spawn: {fileID: 4775353260365060062, guid: 854dd5d747384ea41b652c2648c874c9, type: 3}
-  classic: {fileID: 5299676080272803448, guid: 0abbe0f3728b47145b4e3b93854b2a00, type: 3}
-  trade: {fileID: 4060546230339974983, guid: 09e5e3e03adb56b47b7b1b59f039ceb4, type: 3}
-  boss: {fileID: -6966515825310520010, guid: 4e8477438a1e799469602f9045433381, type: 3}
-  seed: 7338
-  randomSeed: 1
+  _roomAmount: 10
+  _specialRoom: 1
+  _bossRoom: 1
+  _distanceSpecialRoom: 3
+  _distanceBossRoom: 3
+  _offSet: 35
+  _spawn: {fileID: 4775353260365060062, guid: 854dd5d747384ea41b652c2648c874c9, type: 3}
+  _classic: {fileID: 5299676080272803448, guid: 0abbe0f3728b47145b4e3b93854b2a00,
+    type: 3}
+  _trade: {fileID: 4060546230339974983, guid: 09e5e3e03adb56b47b7b1b59f039ceb4, type: 3}
+  _boss: {fileID: -6966515825310520010, guid: 4e8477438a1e799469602f9045433381, type: 3}
+  _seed: 0
+  _randomSeed: 1

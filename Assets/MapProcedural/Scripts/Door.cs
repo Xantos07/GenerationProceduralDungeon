@@ -1,19 +1,17 @@
 using UnityEngine;
 
-namespace NewGeneration
+public class Door : MonoBehaviour
 {
-    public class Door : MonoBehaviour
-    {
-        [SerializeField] private Direction direction;
-        [SerializeField] private Door exitDoor;
-        [SerializeField] private bool isActivate = false;
-     
-        public Direction GetDirection() =>   direction;
-        public bool GetIsActivate() =>   isActivate;
-        
-        public Door GetExitDoor() =>   exitDoor;
-        public void SetExitDoor(Door _Door) => exitDoor = _Door;
-        public void SetIsActivate(bool _isActivate) => isActivate = _isActivate;
-        
-    }
+    [SerializeField] private Direction _direction;
+    [SerializeField] private Door _exitDoor;
+    [SerializeField] private bool _isActivate = false;
+ 
+    public Direction GetDirection() => _direction;
+    public bool GetIsActivate() => _isActivate;
+    
+    public Door GetExitDoor() => _exitDoor;
+    public void SetExitDoor(Door door) => _exitDoor = door;
+    public void SetIsActivate(bool isActivate) => _isActivate = isActivate;
+    
 }
+
