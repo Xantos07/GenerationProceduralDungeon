@@ -613,9 +613,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7f413ffc08870a4497c561306a80365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _roomAmount: 17
-  _specialRoom: 1
-  _bossRoom: 1
+  _roomAmount: 5
+  _lonelyRoom: 2
+  _specialRoom: 0
+  _bossRoom: 0
   _distanceSpecialRoom: 3
   _distanceBossRoom: 3
   _offSet: 35
