@@ -4,14 +4,16 @@ using Random = UnityEngine.Random;
 
 public class GridDungeonGeneration : MonoBehaviour
 {
-    [Header("Generation")] [SerializeField]
-    private int _roomAmount = 10;
+    [Header("Generation")] 
+    [Range(4, 50)] [SerializeField] private int _roomAmount = 10;
+    [Range(0, 15)] [SerializeField] private int _lonelyRoom = 5;
 
-    [SerializeField] private int _specialRoom = 1;
-    [SerializeField] private int _bossRoom = 1;
-    [SerializeField] private int _distanceSpecialRoom = 3;
-    [SerializeField] private int _distanceBossRoom = 3;
+    [Range(0, 4)] [SerializeField] private int _specialRoom = 1;
+    [Range(0, 4)] [SerializeField] private int _bossRoom = 1;
+    [Range(0, 40)] [SerializeField] private int _distanceSpecialRoom = 3;
+    [Range(0, 40)] [SerializeField] private int _distanceBossRoom = 3;
     private int _indexRoom = 0;
+    private int _indexLonelyRoom = 0;
 
     [SerializeField] private float _offSet = 15f;
 
@@ -41,11 +43,15 @@ public class GridDungeonGeneration : MonoBehaviour
    
         Room[] rooms = GetComponentsInChildren<Room>();
         foreach (Room room in rooms) Destroy(room.gameObject);
+        _rooms = new List<Room>();
         
         _indexRoom = 0;
         
         GenerateSpawnRoom();
+        
         GenerateRoom();
+        GenerateLonelyRoom();
+        
         GenerateRoomView();
     }
 
@@ -65,33 +71,36 @@ public class GridDungeonGeneration : MonoBehaviour
             //Si je n'est pas atteint mon nombre de salle attendue
             if (_indexRoom < _roomAmount) 
             {
-                PatternClassicRoom(false);
+                PatternClassicRoom();
 
                 if (indexRoom != _indexRoom) continue;
 
                 // Pas assez de salle donc reset => a corriger pour ne pas changer de seed mais de trouver une solution
                 if (indexRoom == _indexRoom)
                 {
+                    /*
                     _randomSeed = true;
-                    Init();
-                    return;
+                    Init();*/
+                    break;
                 }
             }
 
-            if (PatternClassicRoom(true).Count == 0 || _indexRoom >= _roomAmount)
+            if (PatternClassicRoom().Count == 0 || _indexRoom >= _roomAmount)
             {
-                PatternClassicRoom(true);                    
+                PatternClassicRoom();                    
                 
                 // Pas assez de salle donc reset => a corriger pour ne pas changer de seed mais de trouver une solution
-                _randomSeed = true;
-                if (_indexRoom < _roomAmount || _specialRoom > 0 ||  _bossRoom > 0) Init();
+               // _randomSeed = true;
+                //if (_indexRoom < _roomAmount || _specialRoom > 0 ||  _bossRoom > 0) Init();
                 
-                return;
+                break;
             }
         }
+
+        CheckRoomPosibility();
     }
 
-    List<Room> PatternClassicRoom(bool isEnd)
+    List<Room> PatternClassicRoom()
     {
         List<Room> roomClassicStack = new();
 
@@ -99,6 +108,7 @@ public class GridDungeonGeneration : MonoBehaviour
         {
             for (int i = 0; i < rooms.Doors.Length; i++)
             {
+                //Si notre porte n'est pas activé alors non continuons pas 
                 if (!rooms.Doors[i].GetIsActivate()) continue;
 
                 Direction actualDirection = rooms.Doors[i].GetDirection();
@@ -135,17 +145,18 @@ public class GridDungeonGeneration : MonoBehaviour
                 
                 classicRoom = SpawnRoom(rooms, actualDirection);
                 RoomDoor(rooms, classicRoom, i, nextDirection);
-                RoomName(rooms);
+                RoomName(rooms, " classic ");
 
                 _indexRoom++;
 
                 //lui envoyer sa porte aussi et non que linverse
-                classicRoom.UpdateRoom(_random, rooms.PositionRoom + nextPos, nextDirection, false, isEnd);
-
+                if (_indexRoom > _roomAmount) 
+                 classicRoom.UpdateRoom(_random, rooms.PositionRoom + nextPos, nextDirection, false, true);
+                else 
+                    classicRoom.UpdateRoom(_random, rooms.PositionRoom + nextPos, nextDirection, false, false);
+                
                 roomClassicStack.Add(classicRoom);
             }
-
-            rooms.IsValidate = true;
         }
 
         foreach (Room roomClassic in roomClassicStack) _rooms.Add(roomClassic);
@@ -177,17 +188,71 @@ public class GridDungeonGeneration : MonoBehaviour
         return Instantiate(_classic, _rooms.transform.position + OffSetPosition(_actualDirection), Quaternion.identity, transform);
     }
 
+    /// <summary>
+    /// Permet de débloquer la génération lorsque celle ci forme une impasse lors de sa génération
+    /// </summary>
+    void CheckRoomPosibility()
+    {
+        if(_rooms.Count > _roomAmount) return;
+        
+        foreach (Room room in _rooms)
+        {
+            if(room.IsFull) continue;
+            
+            for (int i = 0; i < 4; i++)
+            {
+                if(!room._doorSpawnning.Contains((Direction)i))
+                {
+                    room.Doors[i].SetIsActivate(true);
+                }
+            }
+        }
+        
+        GenerateRoom();
+    }
+
+    /// <summary>
+    /// Permet de débloquer la génération lorsque celle ci forme une impasse lors de sa génération
+    /// </summary>
+    void GenerateLonelyRoom()
+    {
+        if(_indexLonelyRoom >= _lonelyRoom) return;
+        
+        foreach (Room room in _rooms)
+        {
+            if(room.IsFull) continue;
+            
+            if(_indexLonelyRoom >= _lonelyRoom) return;
+            
+            for (int i = 0; i < 4; i++)
+            {
+                if(!room._doorSpawnning.Contains((Direction)i))
+                {
+                    Direction actualDirection = room.Doors[i].GetDirection();
+                    Direction nextDirection = ConvertDirection.ConvertInverseDirectionInt(actualDirection);
+                    Vector2Int nextPos = ConvertDirection.CalculateCoordinate(actualDirection);
+                    
+                    Room classicRoom = null;
+                    classicRoom = SpawnRoom(room, actualDirection);
+                    RoomDoor(room, classicRoom, i, nextDirection);
+                    RoomName(room, " lonely ");
+                    _indexLonelyRoom++;
+                    classicRoom.UpdateRoom(_random, room.PositionRoom + nextPos, nextDirection, false, true);
+                   break;
+                }
+            }
+        }
+    }
+    
     void RoomDoor(Room rooms, Room classicRoom, int i, Direction nextDirection)
     {
         rooms.Doors[i].SetExitDoor(classicRoom.Doors[(int) nextDirection]);
         classicRoom.Doors[(int) nextDirection].SetExitDoor(rooms.Doors[i]);
     }
 
-    void RoomName(Room classicRoom)
+    void RoomName(Room classicRoom, string factor)
     {
-        if (_roomAmount < _indexRoom)
-            classicRoom.name = classicRoom.name + " / -" + classicRoom.PositionRoom + "- | Init";
-        else classicRoom.name = classicRoom.name + " | DeadEnd";
+        classicRoom.name = classicRoom.name + " / -" + classicRoom.PositionRoom + " | " + factor;
     }
 
     bool AlreadyRoom(List<Room> rooms, Vector2Int newRoomPos)

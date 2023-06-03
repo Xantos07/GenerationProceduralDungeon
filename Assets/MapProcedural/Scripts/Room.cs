@@ -6,17 +6,18 @@ using Random = System.Random;
 public abstract class Room : MonoBehaviour
 {
      public Door[] Doors;
-    [SerializeField] private List<Direction> _doorSpawnning = new List<Direction>();
+    [field:SerializeField] public List<Direction> _doorSpawnning { get; } = new List<Direction>();
     [SerializeField] private int _doorAmount = 0;
     
     [SerializeField] private int _powerDistance = 0;
-    [SerializeField] private bool _isValidate = false;
+    public bool IsValidate { get; set; } = false;
+    public bool IsFull { get; set; } = false;
+    
     [SerializeField] Vector2Int _pos = new();
     
     [SerializeField] private GenerationRule _generationRule;
     [SerializeField] protected RoomBuilding _roomBuilding;
     private Random _seed;
-    public bool IsValidate { get => _isValidate; set => _isValidate = value; }
     public Vector2Int PositionRoom { get => _pos; set => _pos = value; }
 
      //public abstract void UpdateDoor(Random _seed, Vector2Int _pos, Direction _nextDoor,bool _isEnd);
@@ -27,10 +28,13 @@ public abstract class Room : MonoBehaviour
          AddFloor();
          _roomBuilding.BuildFloor(_doorSpawnning);
          
+         //normalement nous pouvons le supp
          foreach (Direction dir in _doorSpawnning)
          {
              Doors[(int)dir].gameObject.SetActive(true);   
          }
+
+         if (_doorSpawnning.Count == 4) IsFull = true;
      }
 
      public void AddNewPart(Direction nextDoor)
