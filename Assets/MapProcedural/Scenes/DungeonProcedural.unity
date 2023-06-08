@@ -578,6 +578,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1995103769}
   - component: {fileID: 1995103771}
+  - component: {fileID: 1995103772}
   m_Layer: 0
   m_Name: 111 Generation
   m_TagString: Untagged
@@ -612,9 +613,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7f413ffc08870a4497c561306a80365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _roomAmount: 10
-  _specialRoom: 1
-  _bossRoom: 1
+  _roomAmount: 5
+  _lonelyRoom: 2
+  _specialRoom: 0
+  _bossRoom: 0
   _distanceSpecialRoom: 3
   _distanceBossRoom: 3
   _offSet: 35
@@ -625,3 +627,16 @@ MonoBehaviour:
   _boss: {fileID: -6966515825310520010, guid: 4e8477438a1e799469602f9045433381, type: 3}
   _seed: 0
   _randomSeed: 1
+--- !u!114 &1995103772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1995103768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0184118e0bf96d4284636338e12a458, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gridDungeonGeneration: {fileID: 0}

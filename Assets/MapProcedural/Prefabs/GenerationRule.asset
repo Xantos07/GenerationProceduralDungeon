@@ -14,11 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnRoomSpawn:
   - 100
+  - 75
+  - 50
+  - 25
+  CapoucRoomSpawn:
   - 100
-  - 50
-  - 25
-  SpawnRoomClassic:
-  - 80
-  - 50
-  - 25
-  - 5
+  - 0
+  - 0
+  - 0
+  BossRoomSpawn:
+  - 100
+  - 0
+  - 0
+  - 0
