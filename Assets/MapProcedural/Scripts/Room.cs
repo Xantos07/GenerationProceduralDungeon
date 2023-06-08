@@ -26,8 +26,10 @@ public abstract class Room : MonoBehaviour
      public void UpdateView()
      {
          AddFloor();
+
          _roomBuilding.BuildFloor(_doorSpawnning);
-         
+         _roomBuilding.BuildDecorativeObject();
+
          //normalement nous pouvons le supp
          foreach (Direction dir in _doorSpawnning)
          {
@@ -74,7 +76,7 @@ public abstract class Room : MonoBehaviour
         if (!Pourcentage(101, _generationRule.SpawnRoomSpawn[_doorAmount])) return;
         
         Doors[indexDoor].SetIsActivate(true);
-       // doors[indexDoor].gameObject.SetActive(true);
+ 
         _doorSpawnning.Add((Direction)indexDoor);
         _doorAmount++;
 
@@ -82,8 +84,8 @@ public abstract class Room : MonoBehaviour
           SetDoor();
         
     }
-    
-    protected bool Pourcentage(int max,float valuePourcent)
+
+     protected bool Pourcentage(int max,float valuePourcent)
     {   
         int _pourcentage = _seed.Next(0, max);
 

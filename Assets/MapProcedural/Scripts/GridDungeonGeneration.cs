@@ -76,23 +76,12 @@ public class GridDungeonGeneration : MonoBehaviour
                 if (indexRoom != _indexRoom) continue;
 
                 // Pas assez de salle donc reset => a corriger pour ne pas changer de seed mais de trouver une solution
-                if (indexRoom == _indexRoom)
-                {
-                    /*
-                    _randomSeed = true;
-                    Init();*/
-                    break;
-                }
+                if (indexRoom == _indexRoom) break;
             }
 
             if (PatternClassicRoom().Count == 0 || _indexRoom >= _roomAmount)
             {
-                PatternClassicRoom();                    
-                
-                // Pas assez de salle donc reset => a corriger pour ne pas changer de seed mais de trouver une solution
-               // _randomSeed = true;
-                //if (_indexRoom < _roomAmount || _specialRoom > 0 ||  _bossRoom > 0) Init();
-                
+                PatternClassicRoom();
                 break;
             }
         }
