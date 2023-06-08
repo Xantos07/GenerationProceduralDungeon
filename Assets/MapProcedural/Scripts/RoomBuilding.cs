@@ -70,7 +70,9 @@ public class RoomBuilding : MonoBehaviour
         
         int x = 0;
         int y = 0;
+        
         Floor _floorInst = null;
+        
         for (int i = -1; i <= 1; i++)
         {
             for (int j = -1; j <= 1; j++)
@@ -85,7 +87,8 @@ public class RoomBuilding : MonoBehaviour
                     _floorInst.name = " FLOOR : " + new Vector2Int(x, y);
                     floors[x, y] = _floorInst;
                     //_floorInst.GetComponent<MeshRenderer>().material = _material;
-                    
+                    SetColorSlot(_floorInst);
+                        
                     CheckAdjacentFloor(new Vector2Int(x, y), _floorInst);
                 }
                 
@@ -101,16 +104,25 @@ public class RoomBuilding : MonoBehaviour
         BuildWallDirection(_partition.gameObject);
     }
 
+    void SetColorSlot(Floor floor)
+    {
+        foreach (MeshRenderer slot in floor.Slots)
+        {
+            slot.material = _material;
+        }
+    }
     public void BuildDecorativeObject()
     {
+        Debug.Log("Your name : " + transform.name);
         for (int x = 0; x < floors.GetLength(0); x++)
         {
             for (int y = 0; y < floors.GetLength(1); y++)
             {
                 if (floors[x, y] == null) continue;
-
-                Floor floor = floors[x, y];
-               floor._decorativeEnvironment.BuildDecorativeObject(floor._pos);
+                
+                    
+                floors[x, y]._decorativeEnvironment.BuildDecorativeObject(floors[x, y].transform.position);    
+                
             }
         }     
     }

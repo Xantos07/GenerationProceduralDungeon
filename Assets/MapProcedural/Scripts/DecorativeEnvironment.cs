@@ -2,10 +2,11 @@ using UnityEngine;
 
 public class DecorativeEnvironment : MonoBehaviour
 {
-    [SerializeField] private EnvironmentalObject[] environmentalObjects;
+    [SerializeField] private GameObject[] environmentalObjectsPattern;
 
-    public void BuildDecorativeObject(Vector2Int pos)
+    public void BuildDecorativeObject(Vector3 pos)
     {
-        Instantiate(environmentalObjects[0], new Vector3(pos.x,0,pos.y), Quaternion.identity, transform);
+        int randomRange = Random.Range(0, environmentalObjectsPattern.Length);
+        Instantiate(environmentalObjectsPattern[randomRange], pos, Quaternion.identity);
     }
 }
