@@ -113,7 +113,6 @@ public class RoomBuilding : MonoBehaviour
     }
     public void BuildDecorativeObject()
     {
-        Debug.Log("Your name : " + transform.name);
         for (int x = 0; x < floors.GetLength(0); x++)
         {
             for (int y = 0; y < floors.GetLength(1); y++)

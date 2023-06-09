@@ -159,6 +159,7 @@ public class GridDungeonGeneration : MonoBehaviour
         
         if (_specialRoom != 0 && _rooms.PowerDistance() >= _distanceSpecialRoom && pourcentageSpecialRoom <= CalculatePourcentageSpecial())
         {
+            Debug.Log("_specialRoom");
             _specialRoom--;
             return Instantiate(_trade, _rooms.transform.position + OffSetPosition(_actualDirection),
                 Quaternion.identity, transform);
@@ -169,6 +170,7 @@ public class GridDungeonGeneration : MonoBehaviour
         if (_bossRoom != 0 &&
             _rooms.PowerDistance() >= _distanceBossRoom && pourcentageBossRoom <= CalculatePourcentageSpecial())
         {
+            Debug.Log("_bossRoom");
             _bossRoom--;
             return Instantiate(_boss, _rooms.transform.position + OffSetPosition(_actualDirection),
                 Quaternion.identity, transform);
